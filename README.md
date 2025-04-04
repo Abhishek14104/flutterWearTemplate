@@ -1,16 +1,57 @@
-# wear_hello_world
+To use this make changes in the
+/home/USER/.pub-cache/hosted/pub.dev/wear-1.1.0/android/build.gradle
 
-A new Flutter project.
+use this code: 
+```
+group 'com.mjohnsullivan.flutterwear.wear'
+version '1.0-SNAPSHOT'
 
-## Getting Started
+buildscript {
+	ext.kotlin_version = '1.7.10' //make sure that this is the latest stable version
+	repositories {
+		google()
+		mavenCentral()
+	}
 
-This project is a starting point for a Flutter application.
+	dependencies {
+		classpath 'com.android.tools.build:gradle:4.1.0'
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+	}
+}
 
-A few resources to get you started if this is your first Flutter project:
+rootProject.allprojects {
+	repositories {
+		google()
+		mavenCentral()
+	}
+}
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+android {
+	compileSdkVersion 31
+
+	sourceSets {
+		main.java.srcDirs += 'src/main/kotlin'
+	}
+	defaultConfig {
+		minSdkVersion 23
+	}
+	lintOptions {
+		disable 'InvalidPackage'
+	}
+}
+
+dependencies {
+	//implementation "androidx.core:core-ktx:+"
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+	implementation 'androidx.wear:wear:1.2.0'
+	implementation 'com.google.android.support:wearable:2.8.1'
+	compileOnly 'com.google.android.wearable:wearable:2.8.1'
+
+	// compileOnly files('C:\\Android\\flutter\\bin\\cache\\artifacts\\engine\\android-x64\\flutter.jar')
+}
+
+```
